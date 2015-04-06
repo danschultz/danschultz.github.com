@@ -1,23 +1,22 @@
 ---
 layout: default
+blurb: I'm the lead front-end engineer at Montage. I'm passionate about web technologies, iOS, Dart and aviation. I have my private pilots license and hold an instrument rating.
 ---
 
-<div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
+<main role="main" class="home">
+  <header class="header text-shadow">
+    <div class="background"></div>
+    <div class="headshot"></div>
+    <h1>Dan Schultz</h1>
+    <p>{{page.blurb}}</p>
+    <nav>
+      <ul>
+        <li class="social-icon social-icon__github"><a href="https://github.com/{{site.github_username}}"></a></li>
+        <li class="social-icon social-icon__twitter"><a href="https://twitter.com/{{site.twitter_username}}"></a></li>
+        <li class="social-icon social-icon__google-plus"><a href="https://plus.google.com/{{site.google_username}}"></a></li>
+        <li class="social-icon social-icon__linkedin"><a href="https://www.linkedin.com/in/{{site.linkedin_username}}"></a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="home-posts"></section>
+</main>
