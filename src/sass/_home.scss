@@ -1,0 +1,94 @@
+html, body {
+  height: 100%;
+}
+
+.home {
+  height: 100%;
+}
+
+.header {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+
+  .background {
+    background: url("/images/background.jpg") center no-repeat;
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+
+    &::before {
+      background-color: rgba(0, 0, 0, 0.7);
+      content: "";
+      height: 100%;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  h1 {
+    margin: 0.5em;
+  }
+
+  p {
+    font-size: 0.8rem;
+    font-weight: 300;
+    margin: 0;
+    max-width: 80%;
+    width: 440px;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    list-style: none;
+  }
+
+  .social-icon {
+    $size: 32px;
+
+    display: inline-block;
+    height: $size;
+    list-style: none;
+    margin: 0 12px;
+    width: $size;
+    transition: transform 400ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.headshot {
+  $size: 104px;
+
+  border: 2px solid #fff;
+  border-radius: $size / 2;
+  box-sizing: border-box;
+  height: $size;
+  overflow: hidden;
+  width: $size;
+
+  &::before  {
+    background: url("/images/headshot.jpg") center no-repeat;
+    background-size: 100%;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}

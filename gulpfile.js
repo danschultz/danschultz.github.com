@@ -24,7 +24,7 @@ gulp.task("metalsmith", function() {
       "sass/*"
     ]));
 
-  gulp.src(joinDir([srcDir, "**/*"]))
+  gulp.src(joinDir([srcDir, "**/*.md"]))
     .pipe(gulpFrontMatter()).on("data", function(file) {
       assign(file, file.frontMatter); 
       delete file.frontMatter;

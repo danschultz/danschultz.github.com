@@ -1,7 +1,13 @@
-html {
-  font-family: Arial;
-}
+// Our variables
+$base-font-family: "Merriweather", serif;
+$base-font-size:   16px;
+$small-font-size:  $base-font-size * 0.875;
+$base-line-height: 1.5;
 
-.test-autoprefixer {
-  display: flex;
-}
+$header-font-family: "Open Sans", sans-serif;
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import "fonts";
+@import "social_icons";
+@import "base";
+@import "home";

@@ -1,0 +1,24 @@
+.social-icon {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.social-icon__github {
+  background-image: url("/images/github.svg");
+  background-size: contain;
+}
+
+.social-icon__twitter {
+  background-image: url("/images/twitter.svg");
+  background-size: contain;
+}
+
+.social-icon__google-plus {
+  background-image: url("/images/google_plus.svg");
+  background-size: contain;
+}
+
+.social-icon__linkedin {
+  background-image: url("/images/linkedin.svg");
+  background-size: contain;
+}
