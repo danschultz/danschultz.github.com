@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: $base-font-family;
   font-size: $base-font-size;
@@ -19,8 +23,4 @@ h3 {
 h1, h2, h3, h4, h5, h6 {
   font-family: $header-font-family;
   font-weight: bold;
-}
-
-.text-shadow {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
 }

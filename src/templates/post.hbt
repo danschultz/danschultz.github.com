@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+{{> head}}
+<body>
+  <header class="banner banner__post banner__cover">
+    <div class="background"></div>
+    <h1>{{title}}</h1>
+    <div class="meta">
+      <span>By <span class="author">{{name}}</span></span>
+      <span>on</span>
+      <time class="publish-date" datetime="{{isoDate date}}">{{postDate date}}</time>
+    </div>
+    <p class="intro row">{{intro}}</p>
+    <a class="button button__on-dark continue-reading" href="#content">Continue Reading</a>
+  </header>
+  <a id="content"></a>
+  <main role="main" class="content row">
+    <article>
+      {{{contents}}}
+    </article>
+  </main>
+</body>
+</html>

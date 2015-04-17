@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+{{> head}}
+<body>
+  <main role="main" class="fill-height">
+    <header class="banner banner__home banner__cover">
+      <div class="background"></div>
+      <div class="headshot"></div>
+      <h1>{{name}}</h1>
+      <p class="intro">{{bio}}</p>
+      <nav class="navigation">
+        <ul>
+          {{#if collections.posts}}
+            <li><a class="button button__on-dark" href="#posts">Posts</a></li>
+          {{/if}}
+          <li>
+            <a class="button button__on-dark" href="https://github.com/{{github_username}}">
+              <span class="button-icon social-icon__github"></span>
+              <span class="button-label">Projects</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <ul class="social-links">
+        <li><a class="social-icon social-icon__twitter" href="https://twitter.com/{{twitter_username}}"></a></li>
+        <li><a class="social-icon social-icon__google-plus" href="https://plus.google.com/{{google_username}}"></a></li>
+        <li><a class="social-icon social-icon__linkedin" href="https://www.linkedin.com/in/{{linkedin_username}}"></a></li>
+      </ul>
+    </header>
+    <section class="content row">
+      {{#if collections.posts}}
+        <header>
+          <a id="posts"></a>
+          <h2>Posts</h2>
+        </header>
+        <ul>
+          {{#each collections.posts}}
+            <li>
+              <header><h3><a href="/{{this.path}}">{{this.title}}</a></h3></header>
+              <article>{{this.intro}}</article>
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </section>
+  </main>
+</body>
+</html>

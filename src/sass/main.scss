@@ -2,12 +2,18 @@
 $base-font-family: "Merriweather", serif;
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-line-height: 1.7;
 
 $header-font-family: "Open Sans", sans-serif;
+
+$button-font-family: "Open Sans", sans-serif;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import "fonts";
 @import "social_icons";
 @import "base";
-@import "home";
+@import "banner";
+@import "content";
+@import "post";
+@import "layout";
+@import "buttons";

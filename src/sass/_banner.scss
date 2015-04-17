@@ -1,20 +1,14 @@
-html, body {
-  height: 100%;
-}
-
-.home {
-  height: 100%;
-}
-
-.header {
+.banner {
   align-items: center;
   color: white;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 480px;
   justify-content: center;
+  max-height: 100%;
   position: relative;
   text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
 
   .background {
     background: url("/images/background.jpg") center no-repeat;
@@ -40,14 +34,6 @@ html, body {
     margin: 0.5em;
   }
 
-  p {
-    font-size: 0.8rem;
-    font-weight: 300;
-    margin: 0;
-    max-width: 80%;
-    width: 440px;
-  }
-
   ul {
     padding: 0;
   }
@@ -55,6 +41,26 @@ html, body {
   li {
     display: inline-block;
     list-style: none;
+  }
+
+  .headshot {
+    $size: 104px;
+
+    border: 2px solid #fff;
+    border-radius: $size / 2;
+    box-sizing: border-box;
+    height: $size;
+    overflow: hidden;
+    width: $size;
+
+    &::before  {
+      background: url("/images/headshot.jpg") center no-repeat;
+      background-size: 100%;
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
   }
 
   .social-icon {
@@ -73,22 +79,35 @@ html, body {
   }
 }
 
-.headshot {
-  $size: 104px;
+.banner__cover {
+  height: 100%;
+}
 
-  border: 2px solid #fff;
-  border-radius: $size / 2;
-  box-sizing: border-box;
-  height: $size;
-  overflow: hidden;
-  width: $size;
+.banner__home {
+  .intro {
+    font-size: 0.8em;
+    font-weight: 300;
+    margin: 0;
+    max-width: 88%;
+    width: 440px;
+  }
 
-  &::before  {
-    background: url("/images/headshot.jpg") center no-repeat;
-    background-size: 100%;
-    content: "";
-    display: block;
-    height: 100%;
-    width: 100%;
+  .navigation {
+    margin-top: 1.25em;
+
+    .button {
+      margin: 0 0.5em;
+    }
+  }
+
+  .social-links {
+    margin-top: 1.5em;
+  }
+}
+
+.banner__post {
+  .intro {
+    margin: 2em 0;
+    text-align: left;
   }
 }
