@@ -74,7 +74,7 @@ gulp.task("css", function() {
 gulp.task("build", ["metalsmith", "css"]);
 
 gulp.task("serve", ["build"], function() {
-  browserSync({server: buildDir});
+  browserSync({server: buildDir, open: false});
 
   gulp.watch(joinDir([srcDir, "**/*.{scss,css}"]), ["css"]);
   gulp.watch(joinDir([srcDir, "**/*.{html,md,hbt,jpg,png,svg}"]), ["metalsmith"]);
