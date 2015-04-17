@@ -1,0 +1,53 @@
+.profile {
+  .headshot {
+    margin-bottom: -0.25em;
+  }
+}
+
+.profile__home {
+  max-width: 88%;
+  width: 440px;
+
+  .intro {
+    font-size: 0.8em;
+    font-weight: 300;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-height: 490px) {
+    .headshot, .name {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .headshot {
+      width: 72px;
+      height: 72px;
+    }
+
+    .intro {
+      margin-top: 1.4em;
+    }
+  }
+}
+
+.headshot {
+  $size: 104px;
+
+  border: 2px solid #fff;
+  border-radius: $size / 2;
+  box-sizing: border-box;
+  display: inline-block;
+  height: $size;
+  overflow: hidden;
+  width: $size;
+
+  &::before  {
+    background: url("/images/headshot.jpg") center no-repeat;
+    background-size: 100%;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}

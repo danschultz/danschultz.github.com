@@ -2,7 +2,8 @@
   font-family: $button-font-family;
   font-size: 0.75em;
   border-radius: 2em;
-  padding: 0.5em 1.25em;
+  letter-spacing: 0.11em;
+  padding: 0.66em 1em;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -10,7 +11,6 @@
 .button__on-dark {
   border: 1px solid rgba(255, 255, 255, 0.8);
   color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.11em;
 
   &:hover {
     border: 1px solid rgba(255, 255, 255, 1);
@@ -25,8 +25,8 @@
 
 .button-icon {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.68em;
+  height: 1.68em;
   vertical-align: middle;
   position: relative;
   top: -2px;

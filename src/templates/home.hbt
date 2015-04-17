@@ -5,9 +5,11 @@
   <main role="main" class="fill-height">
     <header class="banner banner__home banner__cover">
       <div class="background"></div>
-      <div class="headshot"></div>
-      <h1>{{name}}</h1>
-      <p class="intro">{{bio}}</p>
+      <div class="profile profile__home">
+        <div class="headshot"></div>
+        <h1 class="name">{{name}}</h1>
+        <p class="intro">{{bio}}</p>
+      </div>
       <nav class="navigation">
         <ul>
           {{#if collections.posts}}

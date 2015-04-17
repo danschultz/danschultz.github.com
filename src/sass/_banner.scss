@@ -42,25 +42,24 @@
     display: inline-block;
     list-style: none;
   }
+}
 
-  .headshot {
-    $size: 104px;
+.banner__cover {
+  height: 100%;
+}
 
-    border: 2px solid #fff;
-    border-radius: $size / 2;
-    box-sizing: border-box;
-    height: $size;
-    overflow: hidden;
-    width: $size;
+.banner__home {
+  .navigation {
+    margin-top: 1.25em;
 
-    &::before  {
-      background: url("/images/headshot.jpg") center no-repeat;
-      background-size: 100%;
-      content: "";
-      display: block;
-      height: 100%;
-      width: 100%;
+    .button {
+      margin: 0 0.5em;
     }
+  }
+
+  .social-links {
+    margin-top: 1.5em;
+    margin-bottom: 0;
   }
 
   .social-icon {
@@ -76,32 +75,6 @@
     &:hover {
       transform: scale(1.1);
     }
-  }
-}
-
-.banner__cover {
-  height: 100%;
-}
-
-.banner__home {
-  .intro {
-    font-size: 0.8em;
-    font-weight: 300;
-    margin: 0;
-    max-width: 88%;
-    width: 440px;
-  }
-
-  .navigation {
-    margin-top: 1.25em;
-
-    .button {
-      margin: 0 0.5em;
-    }
-  }
-
-  .social-links {
-    margin-top: 1.5em;
   }
 }
 
