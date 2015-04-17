@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Demo Blog Post</title>
+  
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+  <header class="banner banner__post banner__cover">
+    <div class="background"></div>
+    <h1>Demo Blog Post</h1>
+    <div class="meta">
+      <span>By <span class="author">Dan Schultz</span></span>
+      <span>on</span>
+      <time class="publish-date" datetime="2015-04-10T00:00:00+00:00">10 Apr 2015</time>
+    </div>
+    <p class="intro row">This is a demo blog post. Bro ipsum dolor sit amet afterbang death cookies 180 gorby. Mute yard sale hot dogging, crunchy nose stomp heli north shore ACL daffy epic chillax bro dirtbag.</p>
+    <a class="button button__on-dark continue-reading" href="#content">Continue Reading</a>
+  </header>
+  <a id="content"></a>
+  <main role="main" class="content row">
+    <article>
+      <p>This is a <strong>demo</strong> blog post that tests various <em>different</em> styles.</p>
+<h2 id="paragraphs">Paragraphs</h2>
+<p>Bro ipsum dolor sit amet afterbang death cookies 180 gorby. Mute yard sale hot dogging, crunchy nose stomp heli north shore ACL daffy epic chillax bro dirtbag. Pillow popping yard sale backside, bowl death cookies ollie pow spin. Yard sale rip Snowboard park pillow popping free ride mute. Huck park piste, glades backside gondy hellflip epic bomb ski bum death cookies BB. Bike free ride carbon, euro yard sale drop beater ski bum ride rip sucker hole taco glove ride around. Air Snowboard titanium BB frozen chicken heads stoked bump T-bar line grip tape laps sketching misty gnar method.</p>
+<blockquote>
+<p>Giblets cork skid first tracks. Face shots manny gnar, gondy hardtail gaper cork whip death cookies huck hero huckfest epic pipe gapers. Grunt booter stoked reverse camber. Stoked lid 180 line bail. Stoked japan air over the bars first tracks flow.</p>
+</blockquote>
+<p>Road rash flow clipless, frontside free ride gapers smear heli deck. Bonk park titanium giblets face shots granny gear, first tracks air taco glove white room euro. Park rat hardtail first tracks tele. Ride around bro corn berm first tracks yard sale road rash bowl moguls liftie snake bite air rock roll.</p>
+<p>Thanks to <a href="http://www.broipsum.com/">Bro Ipsum</a> for generating this content.</p>
+<h2 id="code-blocks">Code Blocks</h2>
+<p>This is a <code>inline code</code> block.</p>
+<pre><code>var frontMatter = require(&#39;gulp-front-matter&#39;);
+
+gulp.task(&#39;blog-posts&#39;, function() {
+  gulp.src(&#39;./posts/*.md&#39;)
+    .pipe(frontMatter({ // optional configuration
+      property: &#39;frontMatter&#39;, // property added to file object
+      remove: true // should we remove front-matter header?
+    }))
+    .pipe(…) // you may want to take a look at gulp-marked at this point
+});
+</code></pre><h2 id="lists">Lists</h2>
+<h3 id="ordered-lists">Ordered Lists</h3>
+<ol>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ol>
+<h3 id="unordered-lists">Unordered Lists</h3>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+
+    </article>
+  </main>
+</body>
+</html>

@@ -7,25 +7,34 @@
 
   <title>Home</title>
   
-  <link rel="stylesheet" type="text/css" href="css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 <body>
-  <main role="main" class="home">
-    <header class="header text-shadow">
+  <main role="main" class="fill-height">
+    <header class="banner banner__home banner__cover">
       <div class="background"></div>
       <div class="headshot"></div>
       <h1>Dan Schultz</h1>
-      <p>I&#x27;m the lead front-end engineer at Montage. I&#x27;m passionate about web technologies, iOS, Dart and aviation. I have my private pilots license and hold an instrument rating.</p>
-      <nav>
+      <p class="intro">I&#x27;m the lead front-end engineer at Mixbook. I&#x27;m a web engineer, iOS tinkerer, Google Dart aficionado and aviation geek. I also have a private pilots license and hold an instrument rating.</p>
+      <nav class="navigation">
         <ul>
-          <li><a class="social-icon social-icon__github" href="https://github.com/danschultz"></a></li>
-          <li><a class="social-icon social-icon__twitter" href="https://twitter.com/dan_schultz"></a></li>
-          <li><a class="social-icon social-icon__google-plus" href="https://plus.google.com/+danschultzonline"></a></li>
-          <li><a class="social-icon social-icon__linkedin" href="https://www.linkedin.com/in/schultzdan"></a></li>
+          <li>
+            <a class="button button__on-dark" href="https://github.com/danschultz">
+              <span class="button-icon social-icon__github"></span>
+              <span class="button-label">Projects</span>
+            </a>
+          </li>
         </ul>
       </nav>
+      <ul class="social-links">
+        <li><a class="social-icon social-icon__twitter" href="https://twitter.com/dan_schultz"></a></li>
+        <li><a class="social-icon social-icon__google-plus" href="https://plus.google.com/+danschultzonline"></a></li>
+        <li><a class="social-icon social-icon__linkedin" href="https://www.linkedin.com/in/schultzdan"></a></li>
+      </ul>
     </header>
+    <section class="content row">
+    </section>
   </main>
 </body>
 </html>
