@@ -1,13 +1,16 @@
 ---
 title: "Modular Unidirectional Data Flow in Dart"
 date: 2015-04-10
-draft: true
+draft: false
 template: post.hbt
+
+// src: https://www.flickr.com/photos/mithril/2784737757/
+banner_image: wood_architecture.jpg
 
 intro: An architecture pattern for building infinitely nestable modules in Dart and React. After reading this post, I think you'll find the pattern to be simple, elegant, and will ultimately allow you to create complex web applications that stay modular.
 ---
 
-In this post, I'll outline an architecture pattern for building infinitely nestable modules in Dart and React. It's inspired by the [Elm Architecture], but has been tweaked to support a non-functional language like Dart. This pattern can also be applied to React application written in non-Dart languages, like JavaScript, with the support of a reactive library like RxJS or Bacon.
+In this post, I'll outline an architecture pattern for building infinitely nestable modules in Dart and React. It's inspired by the [Elm Architecture], but is tailored to support a non-functional language like Dart. This pattern can also be applied to React application written in non-Dart languages, like JavaScript, with the support of a reactive library like RxJS or Bacon.
 
 An important goal of this pattern was to make use of Dart's static type analysis as much as possible. Something I found frustrating with Flux was the lack of typing for actions and their payload data. Of course, you could create classes for each action, but the number of classes you'd need to create can quickly become large as the size of your application grows.
 

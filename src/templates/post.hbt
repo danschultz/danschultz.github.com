@@ -3,7 +3,7 @@
 {{> head}}
 <body>
   <header class="banner banner__post banner__cover">
-    <div class="background"></div>
+    <div class="background" style="background-image: url(/images/posts/{{banner_image}})"></div>
     <h1>{{title}}</h1>
     <div class="meta">
       <span>By <span class="author">{{name}}</span></span>

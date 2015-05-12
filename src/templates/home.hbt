@@ -29,7 +29,7 @@
         <li><a class="social-icon social-icon__linkedin" href="https://www.linkedin.com/in/{{linkedin_username}}"></a></li>
       </ul>
     </header>
-    <section class="content row">
+    <section class="content row post-archive">
       {{#if collections.posts}}
         <header>
           <a id="posts"></a>
