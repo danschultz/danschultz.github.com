@@ -11,6 +11,7 @@ var drafts = require("metalsmith-drafts");
 var sass = require("gulp-sass");
 var autoprefixer = require("gulp-autoprefixer");
 var ignore = require("metalsmith-ignore");
+var metallic = require("metalsmith-metallic");
 var gulpFrontMatter = require("gulp-front-matter");
 var assign = require("lodash.assign");
 var filter = require("gulp-filter");
@@ -44,6 +45,7 @@ gulp.task("metalsmith", function() {
         head: 'partials/head'
       }
     }))
+    .use(metallic())
     .use(ignore([
       "sass/**/*",
       "templates/**/*"
