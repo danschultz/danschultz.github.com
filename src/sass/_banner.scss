@@ -47,7 +47,7 @@
 }
 
 .banner__cover {
-  height: 100%;
+  height: 100vh;
 }
 
 .banner__home {
@@ -84,5 +84,9 @@
   .intro {
     margin: 2em 0;
     text-align: left;
+  }
+
+  .continue-reading {
+    text-decoration: none;
   }
 }

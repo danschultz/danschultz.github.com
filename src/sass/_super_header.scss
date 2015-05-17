@@ -1,0 +1,28 @@
+.super-header {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: $header-font-family;
+  font-size: 0.86em;
+  font-weight: 300;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+
+  a {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+  }
+
+  .super-header--left {
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+  }
+
+  .super-header--right {
+    position: absolute;
+    right: 1.2rem;
+    top: 1.7rem;
+  }
+}

@@ -7,4 +7,13 @@
     padding-left: 1em;
     margin: 1em 2em;
   }
+
+  a {
+    color: #5ba4e5;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

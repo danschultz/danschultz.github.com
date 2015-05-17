@@ -7,6 +7,7 @@ var markdown = require("metalsmith-markdown");
 var templates  = require("metalsmith-templates");
 var collections = require("metalsmith-collections");
 var permalinks = require("metalsmith-permalinks");
+var wordCount = require("metalsmith-word-count");
 var drafts = require("metalsmith-drafts");
 var sass = require("gulp-sass");
 var autoprefixer = require("gulp-autoprefixer");
@@ -38,6 +39,7 @@ gulp.task("metalsmith", function() {
     }))
     .use(markdown())
     .use(permalinks(":collections/:title"))
+    .use(wordCount())
     .use(templates({
       engine: "handlebars",
       directory: joinDir([srcDir, "templates"]),

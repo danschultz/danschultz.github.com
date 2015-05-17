@@ -2,8 +2,12 @@
   font-style: italic;
 }
 
-.comments {
+.comments, .share {
   margin-top: 2em;
+}
+
+.share--button {
+  margin-right: 0.5em;
 }
 
 code {

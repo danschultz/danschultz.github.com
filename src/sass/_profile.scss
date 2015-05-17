@@ -1,12 +1,10 @@
-.profile {
-  .headshot {
-    margin-bottom: -0.25em;
-  }
-}
-
 .profile__home {
   max-width: 88%;
   width: 440px;
+
+  .headshot {
+    margin-bottom: -0.25em;
+  }
 
   .intro {
     font-size: 0.8em;
@@ -28,6 +26,26 @@
     .intro {
       margin-top: 1.4em;
     }
+  }
+}
+
+.profile__super-header {
+  position: absolute;
+
+  .headshot {
+    $size: 40px;
+
+    border: none;
+    height: $size;
+    width: $size;
+    vertical-align: middle;
+  }
+
+  .name {
+    display: inline;
+    font-weight: normal;
+    margin-left: 0.4em;
+    vertical-align: middle;
   }
 }
 

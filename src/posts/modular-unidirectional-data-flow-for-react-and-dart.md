@@ -1,5 +1,5 @@
 ---
-title: "A Modular Unidirectional Data Flow in Dart"
+title: "Modular Unidirectional Data Flow for React and Dart"
 date: 2015-04-10
 draft: false
 template: post.hbt
@@ -7,18 +7,18 @@ template: post.hbt
 // src: https://www.flickr.com/photos/mithril/2784737757/
 banner_image: wood_architecture.jpg
 
-intro: A unidirectional data flow pattern for building infinitely nestable modules in Dart and React. Ultimately it helps with breaking your app into smaller reusable components that are easier to understand and easier to test.
+intro: A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. Ultimately it helps to break up your app into smaller reusable modules, which are easier to understand and easier to test.
 ---
 
 I've been experimenting with Dart and React over the last few months, and as part of these experiments, I've been using a pattern that's inspired by the [Elm Architecture] to structure data flow.
 
-This pattern allows you to build React modules that are infinitely nestable, and where each module is only concerned about its immediate children. It also centralizes the state of your application, such that it becomes the single source of truth when rendering your views. This has the potential of eliminating a whole class of bugs, where the internal state of your views gets out of sync with the application.
+This pattern allows you to build React modules that are infinitely nestable, and where each module is only concerned about its immediate children. It also centralizes the state of your application, such that it becomes the single source of truth when rendering your views. This has the potential of eliminating a suite of bugs, where the internal state of your views gets out of sync with the application.
 
-Overall, it's worked well in these smaller experiments, and we've decided to use it on a new product we've just started at [Mixbook]. I think you'll find this pattern to be simple, elegant, and will ultimately allow you to create web apps that stay modular.
+Overall, it's been working well in these experiments, and we've decided to use it on a new product that we just started at [Mixbook]. I think you'll find this pattern to be simple, elegant, and will ultimately allow you to create web apps that stay modular.
 
 As previously mentioned, this pattern is inspired by Elm, but is tailored to support a non-functional language like Dart. This pattern can also be applied to React application written in non-Dart languages, like JavaScript, with the help of a reactive library like RxJS or Bacon.
 
-To get started, I'll introduce the basic pattern, then use it to build a web app with a single component. After that we'll modify the app to reuse the component in a dynamic list. The [source code] is up on Github if you'd like to look at the completed app.
+To get started, I'll introduce the basic pattern, then use it to build a web app with a single component. After that we'll modify the app to reuse the component in a dynamic list. For those of you how like to dive straight into the [source code], the completed app is up on Github.
 
 ## The Basic Pattern
 
@@ -63,7 +63,7 @@ Action<State> appendValue(String value) {
 }
 ```
 
-In Flux parlance, the `appendValue` function is the payload's action type, its arguments is the payload's data and the returned closure is the means of modifying the state. With this technique, we remove the need to perform a `switch` statement on the type of action, and also get type checking for the action's payload data.
+In Flux parlance, the `appendValue` function is the payload's action type, its arguments is the payload's data and the returned closure is the means of modifying the state. With this technique, we remove the need to perform a bunch of conditional statements for the type of action, and we also get type checking for the action's payload data.
 
 ## Example: A Single Counter
 
@@ -141,7 +141,7 @@ class View extends Component {
 
 So far we've defined a component that has a state, a view, and a set of actions. But, we're not responding to these actions. Let's go over how actions modify the application's state, and how this triggers a rerender of the view.
 
-Generally speaking, your application's state is held inside a `scan` stream. This stream transformer isn't provided by Dart, so we use [Frappe] to provide this functionality.
+Generally speaking, your application's state is held inside a `scan` stream within your `main` function. This stream transformer isn't provided by Dart, so we use [Frappe] to provide this functionality.
 
 Using a `scan` stream is nice, because it'll hold the current application state, but also modify it whenever an action is added to the controller. We can also listen for changes to the state stream and trigger side effects, such as rerendering the view or updating the browser's history state.
 
@@ -221,26 +221,22 @@ part of counter_demo.views.counter_list;
 
 Action<State> createCounter() {
   return (State state) {
-    var counter = new counter.State(state.nextId, 0);
-    var counters = state.counters.toList()..insert(0, counter);
+    var newCounter = new counter.State(state.nextId, 0);
+    var counters = state.counters.toList()..insert(0, newCounter);
     return new State(state.nextId + 1, counters);
   };
 }
 
 Action<State> removeCounter(int id) {
   return (State state) {
-    var counters = state.counters.toList()..removeWhere((counter) {
-      return counter.id == id;
-    });
+    var counters = state.counters.toList()..removeWhere((c) => c.id == id);
     return new State(state.nextId, counters);
   };
 }
 
 Action<State> updateCounter(int id, Action<counter.State> action) {
   return (State state) {
-    var counters = state.counters.map((counter) {
-      return counter.id == id ? action(counter) : counter;
-    });
+    var counters = state.counters.map((c) => c == id ? action(c) : c);
     return new State(state.nextId, counters);
   };
 }
@@ -267,10 +263,10 @@ class View extends Component {
     ])
   }
 
-  _renderCounter(counter.State counter) {
+  _renderCounter(counter.State state) {
     var counterActions = new StreamController();
     counterActions.stream.listen((action) {
-      _actions.add(updateCounter(counter.id, action));
+      _actions.add(updateCounter(state.id, action));
     });
 
     return div({}, [
@@ -283,14 +279,18 @@ class View extends Component {
 
 As previously mentioned, we need to modify the states of a counter in the counter list. To handle this, we create a new stream controller for each counter view that it can add actions onto. When an action is added, we associate that action with an ID using `updateCounter` which will apply the action to the specific counter in the counter list.
 
+Another important thing to note is that a module is only responsible for its direct children. At no time is a module reaching down to a grandchild to modify state, or is it ever reaching outside itself to get its state. The actions for grandchildren will always be propagated up by the module's children, and the state of the module will always be passed by its parent.
+
 ## Take Aways
 
+To summarize, here are some take aways:
+
 * Each module is a library that contains a state, a view and a set of actions. This keeps the API for each module standardized and easy to turn into a [deferred library].
-* Modules can be nested infinitely, and each module is only concerned by its immediate children.
-* Your application state is in a single location and serves as the source of truth when triggering side effects, such as rendering the view. This eliminates a class of bugs where the state of a component becomes out of sync with the state of the application.
+* Modules can be nested infinitely, and each module is only concerned about its immediate children.
+* Your application state is centralized and serves as the source of truth when triggering side effects, such as rendering the view. This eliminates a class of bugs where the state of a component becomes out of sync with the state of the application.
 * Testing is made easier from the use of immutable classes and declarative actions.
 
-If you'd like to see another example of this architecture, there's a slightly more involved [TodoMVC] example on Github.
+If you're interested in looking further into this architecture, the [source code] for this app is up on Github. I also have another slightly more involved [TodoMVC] example that uses this pattern.
 
 
 [Mixbook]: http://www.mixbook.com
