@@ -10,19 +10,25 @@ banner_image: wood_architecture.jpg
 intro: A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. Ultimately it helps to break up your app into smaller reusable modules, which are easier to understand and easier to test.
 ---
 
-I've been experimenting with Dart and React over the last few months, and as part of these experiments, I've been using a pattern that's inspired by the [Elm Architecture] to structure data flow.
+I've been experimenting with Dart and React over the last few months, and as part of these experiments, I've been using a pattern that's inspired by [Elm][Elm Architecture] to structure data flow.
 
-This pattern allows you to build React modules that are infinitely nestable, and where each module is only concerned about its immediate children. It also centralizes the state of your application, such that it becomes the single source of truth when rendering your views. This has the potential of eliminating a suite of bugs, where the internal state of your views gets out of sync with the application.
+With this pattern, your application is split up into modules that follow a specific convention. Each module has a state, a view and a set of actions. Modules can be nested infinitely deep inside other modules, but each module is only concerned about its immediate children.
 
-Overall, it's been working well in these experiments, and we've decided to use it on a new product that we just started at [Mixbook]. I think you'll find this pattern to be simple, elegant, and will ultimately allow you to create web apps that stay modular.
+As you'll see, every module is self contained. They never reach outside themselves to change or retrieve their state. This makes using them as a [deferred library][lazy loading] a snap, and allows you to keep the initial size of your app small.
 
-As previously mentioned, this pattern is inspired by Elm, but is tailored to support a non-functional language like Dart. This pattern can also be applied to React application written in non-Dart languages, like JavaScript, with the help of a reactive library like RxJS or Bacon.
+This pattern also centralizes application state, and serves as a single source of truth when rendering views. This eliminates a whole suite of bugs where the internal state of the view can becomes out of sync with the application.
 
-To get started, I'll introduce the basic pattern, then use it to build a web app with a single component. After that we'll modify the app to reuse the component in a dynamic list. For those of you how like to dive straight into the [source code], the completed app is up on Github.
+Lastly, state modification and rerendering of the application happens through a unidirectional data flow. This really simplifies the process of state modification and updating your views. Plus, it makes reasoning about your application a whole lot easier.
+
+Overall, the pattern's been working well in these experiments, and we've decided to use it on a new product that we just started at [Mixbook]. I think you'll find it to be simple, pretty powerful, and will ultimately allow you to create web apps that stay modular.
+
+As previously mentioned, this pattern is inspired by Elm, but is tailored to support non-functional languages like Dart. However, it can easily be adapted to non-Dart languages, like JavaScript, with the help of a reactive library like RxJS or Bacon.
+
+I'll start out by introducing the basic pattern, then use it to build an app that has a single module. After that, we'll modify the app to reuse the module in a dynamic list. For those of you how like to dive straight into [source code], the completed app is up on Github for you to look at.
 
 ## The Basic Pattern
 
-Each module is a Dart library that's separated into three parts: a state, a view and actions.
+Each module is a Dart library that's separated into three parts: a state, a view and a set of actions.
 
 ### View
 
@@ -41,7 +47,7 @@ class MyView extends react.Component {
 
 ### State
 
-The state is a simple immutable value object that encapsulates the state of a module.
+The state is a simple immutable object that encapsulates the state of a module.
 
 ```dart
 class State {
@@ -158,12 +164,12 @@ void main() {
   var applicationElement = querySelector("#application");
   var initialState = new counter.State(0);
 
-  var actionsSink = new StreamController<Action<counter.State>>();
-  var actions = new EventStream<Action<counter.State>>(actionsSink.stream);
+  var controller = new StreamController<Action<counter.State>>();
+  var actions = new EventStream<Action<counter.State>>(controller.stream);
   var state = actions.scan(initialState, (state, action) => action(state));
 
   state.listen((state) {
-    var view = counter.view({"state": state, "actions": actionsSink});
+    var view = counter.view({"state": state, "actions": controller});
     react.render(view, applicationElement);
   });
 }
@@ -172,7 +178,7 @@ void main() {
 There's a bit going on here, so lets break down reacting to the actions from our module and updating the application's state.
 
 * We define the initial state of our application, with a starting count of 0, and assign it to `initialState`.
-* We define a `StreamController`, assign it to `actionsSink`, and pass it to our view. The view will request changes to the application state by adding actions onto this `StreamController`.
+* We define a `StreamController`, assign it to `controller`, and pass it to our view. The view will request changes to the application state by adding actions onto this `StreamController`.
 * We use Frappe's `scan` transformer to apply actions from our view to the previous state of the application.
 * We listen to the `state` stream and rerender the view whenever it has changed.
 
@@ -281,22 +287,22 @@ As previously mentioned, we need to modify the states of a counter in the counte
 
 Another important thing to note is that a module is only responsible for its direct children. At no time is a module reaching down to a grandchild to modify state, or is it ever reaching outside itself to get its state. The actions for grandchildren will always be propagated up by the module's children, and the state of the module will always be passed by its parent.
 
-## Take Aways
+## Conclusions
 
 To summarize, here are some take aways:
 
-* Each module is a library that contains a state, a view and a set of actions. This keeps the API for each module standardized and easy to turn into a [deferred library].
+* Each module is a self-contained library that with a view, a state and a set of actions. This keeps the API for each module standardized and makes it easy to turn into a [deferred library][lazy loading].
 * Modules can be nested infinitely, and each module is only concerned about its immediate children.
-* Your application state is centralized and serves as the source of truth when triggering side effects, such as rendering the view. This eliminates a class of bugs where the state of a component becomes out of sync with the state of the application.
+* Your application state is centralized and serves as the source of truth when triggering side effects, eliminating bugs where the state of a component becomes out of sync with the state of the application.
 * Testing is made easier from the use of immutable classes and declarative actions.
 
 If you're interested in looking further into this architecture, the [source code] for this app is up on Github. I also have a [TodoMVC] example that uses this pattern that's slightly more involved.
 
+I hope you give this a try in one of your apps, and if you do, let me know how it went in the comments below.
 
 [Mixbook]: http://www.mixbook.com
 [Elm Architecture]: https://github.com/evancz/elm-architecture-tutorial
 [Frappe]: https://github.com/danschultz/frappe
 [lazy loading]: https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading
-[deferred library]: https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading
 [source code]: https://github.com/danschultz/modular_counter_react_dart
 [TodoMVC]: https://github.com/danschultz/modular_todo_react_dart
