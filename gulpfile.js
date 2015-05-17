@@ -44,7 +44,8 @@ gulp.task("metalsmith", function() {
       engine: "handlebars",
       directory: joinDir([srcDir, "templates"]),
       partials: {
-        head: 'partials/head'
+        head: 'partials/head',
+        google_analytics: 'partials/google_analytics'
       }
     }))
     .use(metallic())

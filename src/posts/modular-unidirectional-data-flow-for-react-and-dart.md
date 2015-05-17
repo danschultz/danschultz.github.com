@@ -290,7 +290,7 @@ To summarize, here are some take aways:
 * Your application state is centralized and serves as the source of truth when triggering side effects, such as rendering the view. This eliminates a class of bugs where the state of a component becomes out of sync with the state of the application.
 * Testing is made easier from the use of immutable classes and declarative actions.
 
-If you're interested in looking further into this architecture, the [source code] for this app is up on Github. I also have another slightly more involved [TodoMVC] example that uses this pattern.
+If you're interested in looking further into this architecture, the [source code] for this app is up on Github. I also have a [TodoMVC] example that uses this pattern that's slightly more involved.
 
 
 [Mixbook]: http://www.mixbook.com

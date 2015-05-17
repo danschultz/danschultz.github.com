@@ -46,5 +46,6 @@
       {{/if}}
     </section>
   </main>
+  {{> google_analytics}}
 </body>
 </html>
