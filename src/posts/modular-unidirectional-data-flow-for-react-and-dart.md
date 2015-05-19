@@ -7,7 +7,7 @@ template: post.hbt
 // src: https://www.flickr.com/photos/mithril/2784737757/
 banner_image: wood_architecture.jpg
 
-intro: A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. Ultimately it helps to break up your app into smaller reusable modules, which are easier to understand and easier to test.
+intro: A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. It helps you write code that's easier to understand, easier to test, and easier to turn into deferred libraries.
 ---
 
 I've been experimenting with Dart and React over the last few months, and as part of these experiments, I've been using a pattern that's inspired by [Elm][Elm Architecture] to structure data flow.
