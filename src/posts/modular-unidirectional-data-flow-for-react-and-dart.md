@@ -14,7 +14,7 @@ I've been experimenting with Dart and React over the last few months, and as par
 
 With this pattern, your application is split up into modules that follow a specific convention. Each module has a state, a view and a set of actions. Modules can be nested infinitely deep inside other modules, but each module is only concerned about its immediate children.
 
-As you'll see, every module is self contained. They never reach outside themselves to change or get their state. This makes using them as a [deferred library][lazy loading] a snap, and helps you keep the initial size of your app small.
+As you'll see, every module is self contained. They never reach outside themselves to change or get their state. This makes using them as a [deferred library][lazy loading] a snap, and helps you keep the initial size of your app small by loading modules only when they're needed.
 
 This pattern also centralizes the state of you app, and serves as a single source of truth when rendering your views. This eliminates a whole suite of bugs where the internal state of the view can becomes out of sync with the application.
 
