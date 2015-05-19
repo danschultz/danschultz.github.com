@@ -31,7 +31,7 @@
           <span>on</span>
           <time class="publish-date" datetime="2015-04-10T00:00:00+00:00">10 Apr 2015</time>
         </div>
-        <p class="intro row">A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. Ultimately it helps to break up your app into smaller reusable modules, which are easier to understand and easier to test.</p>
+        <p class="intro row">A unidirectional data flow pattern for building infinitely nestable modules in React and Dart. It helps you write code that&#x27;s easier to understand, easier to test, and easier to turn into deferred libraries.</p>
         <a class="button button__on-dark continue-reading" href="#content">Continue Reading</a>
       </header>
       <a id="content"></a>
@@ -39,11 +39,11 @@
         <section>
           <p>I&#39;ve been experimenting with Dart and React over the last few months, and as part of these experiments, I&#39;ve been using a pattern that&#39;s inspired by <a href="https://github.com/evancz/elm-architecture-tutorial">Elm</a> to structure data flow.</p>
 <p>With this pattern, your application is split up into modules that follow a specific convention. Each module has a state, a view and a set of actions. Modules can be nested infinitely deep inside other modules, but each module is only concerned about its immediate children.</p>
-<p>As you&#39;ll see, every module is self contained. They never reach outside themselves to change or retrieve their state. This makes using them as a <a href="https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading">deferred library</a> a snap, and allows you to keep the initial size of your app small.</p>
-<p>This pattern also centralizes application state, and serves as a single source of truth when rendering views. This eliminates a whole suite of bugs where the internal state of the view can becomes out of sync with the application.</p>
-<p>Lastly, state modification and rerendering of the application happens through a unidirectional data flow. This really simplifies the process of state modification and updating your views. Plus, it makes reasoning about your application a whole lot easier.</p>
-<p>Overall, the pattern&#39;s been working well in these experiments, and we&#39;ve decided to use it on a new product that we just started at <a href="http://www.mixbook.com">Mixbook</a>. I think you&#39;ll find it to be simple, pretty powerful, and will ultimately allow you to create web apps that stay modular.</p>
-<p>As previously mentioned, this pattern is inspired by Elm, but is tailored to support non-functional languages like Dart. However, it can easily be adapted to non-Dart languages, like JavaScript, with the help of a reactive library like RxJS or Bacon.</p>
+<p>As you&#39;ll see, every module is self contained. They never reach outside themselves to change or get their state. This makes using them as a <a href="https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading">deferred library</a> a snap, and helps you keep the initial size of your app small by loading modules only when they&#39;re needed.</p>
+<p>This pattern also centralizes the state of you app, and serves as a single source of truth when rendering your views. This eliminates a whole suite of bugs where the internal state of the view can becomes out of sync with the application.</p>
+<p>Lastly, state modification and view updates happen through a unidirectional data flow. This simplifies the process of your app updating state and rerendering. Plus, it makes reasoning about your application a whole lot easier.</p>
+<p>Overall, the pattern&#39;s been working well in these experiments, and we&#39;ve decided to use it on a new product that we just started at <a href="http://www.mixbook.com">Mixbook</a>. I think you&#39;ll find it to be simple, powerful, and will ultimately allow you to create web apps that stay modular.</p>
+<p>As previously mentioned, this pattern is inspired by Elm, but is tailored to support a non-functional language like Dart. However, it can easily be adapted to other languages, like JavaScript, with the help of a reactive library like RxJS or Bacon.</p>
 <p>I&#39;ll start out by introducing the basic pattern, then use it to build an app that has a single module. After that, we&#39;ll modify the app to reuse the module in a dynamic list. For those of you how like to dive straight into <a href="https://github.com/danschultz/modular_counter_react_dart">source code</a>, the completed app is up on Github for you to look at.</p>
 <h2 id="the-basic-pattern">The Basic Pattern</h2>
 <p>Each module is a Dart library that&#39;s separated into three parts: a state, a view and a set of actions.</p>
@@ -67,7 +67,7 @@
 }
 </code></pre>
 <h3 id="actions">Actions</h3>
-<p>Actions are functions that return closures to modify the state of the module. The returned function accepts a single argument of the state to modify, and returns a new object representing the modified <code>State</code>.</p>
+<p>Actions are functions that return closures to modify the module&#39;s state. The returned function accepts a single argument of the state to modify, and returns a new object representing the modified <code>State</code>.</p>
 <pre><code class="lang-dart">typedef T Action&lt;T&gt;(T state);
 
 Action&lt;State&gt; appendValue(String value) {
@@ -88,7 +88,7 @@ part &#39;counter/actions.dart&#39;;
 part &#39;counter/state.dart&#39;;
 part &#39;counter/view.dart&#39;;
 </code></pre>
-<p>Our state for this component is pretty simple. It has a single field which represents the current value.</p>
+<p>Our state for this component is pretty simple. It has a single field to represent the counter&#39;s current count.</p>
 <pre><code class="lang-dart">// lib/views/counter/state.dart
 part of counter_demo.views.counter;
 
@@ -98,7 +98,7 @@ class State {
   State(this.count);
 }
 </code></pre>
-<p>The actions for this component are pretty straight forward as well. We have two actions, one for incrementing and one for decrementing the count.</p>
+<p>The actions for this component are pretty straight forward as well. We have two actions, one for incrementing and one for decrementing the count on a counter.</p>
 <pre><code class="lang-dart">// lib/views/counter/actions.dart
 part of counter_demo.views.counter;
 
@@ -110,7 +110,7 @@ Action&lt;State&gt; decrement() {
   return (State state) =&gt; new State(state.count - 1);
 }
 </code></pre>
-<p>What&#39;s great about these actions is that they&#39;re stateless. This makes them easier to reason about, but also easier to test. We can create a <code>State</code> object, pass it to one of our actions and test its result.</p>
+<p>What&#39;s great about these actions is that they&#39;re stateless. This makes them easier to reason about, but also easier to test. We can create variations of <code>State</code> objects, pass them to these actions and test their results.</p>
 <p>Finally, we define the render function for our React component, and setup each of the buttons to add their action onto the <code>actions</code> controller.</p>
 <pre><code class="lang-dart">// lib/views/counter/view.dart
 part of counter_demo.views.counter;
@@ -133,9 +133,10 @@ class View extends Component {
 }
 </code></pre>
 <h2 id="the-update-loop">The Update Loop</h2>
-<p>So far we&#39;ve defined a component that has a state, a view, and a set of actions. But, we&#39;re not responding to these actions. Let&#39;s go over how actions modify the application&#39;s state, and how this triggers a rerender of the view.</p>
+<p>So far we&#39;ve defined a module that has a state, a view, and a set of actions. But, we&#39;re not responding to these actions to make anything change. Let&#39;s go over how actions modify the application&#39;s state, and how this triggers some side-effect, such a rerendering the view.</p>
 <p>Generally speaking, your application&#39;s state is held inside a <code>scan</code> stream within your <code>main</code> function. This stream transformer isn&#39;t provided by Dart, so we use <a href="https://github.com/danschultz/frappe">Frappe</a> to provide this functionality.</p>
-<p>Using a <code>scan</code> stream is nice, because it&#39;ll hold the current application state, but also modify it whenever an action is added to the controller. We can also listen for changes to the state stream and trigger side effects, such as rerendering the view or updating the browser&#39;s history state.</p>
+<p>Using a <code>scan</code> stream is nice, because it&#39;ll hold the current application state, but also modify it whenever an action is added to the controller. Since our state is represented by a stream, we can react to its changes and trigger some behavior, like updating the view.</p>
+<p>If we wanted, we could also apply other transformations to our state stream. For instance, we could convert our state to JSON using <code>Stream.map()</code> and update the browser&#39;s history. Or maybe we could use Frappe&#39;s <code>Stream.debounce()</code> to throttle and persist the state to some external API.</p>
 <pre><code class="lang-dart">import &#39;dart:html&#39;;
 import &#39;package:frappe/frappe.dart&#39;;
 import &#39;package:react/react.dart&#39; as react;
@@ -158,12 +159,12 @@ void main() {
   });
 }
 </code></pre>
-<p>There&#39;s a bit going on here, so lets break down reacting to the actions from our module and updating the application&#39;s state.</p>
+<p>There&#39;s a bit going on here, so lets break down listening to the actions from our module and updating the application&#39;s state.</p>
 <ul>
 <li>We define the initial state of our application, with a starting count of 0, and assign it to <code>initialState</code>.</li>
-<li>We define a <code>StreamController</code>, assign it to <code>controller</code>, and pass it to our view. The view will request changes to the application state by adding actions onto this <code>StreamController</code>.</li>
+<li>We define a <code>StreamController</code>, assign it to <code>controller</code>, and pass it to the module&#39;s view. The view will request changes to the application state by adding actions onto this <code>StreamController</code>.</li>
 <li>We use Frappe&#39;s <code>scan</code> transformer to apply actions from our view to the previous state of the application.</li>
-<li>We listen to the <code>state</code> stream and rerender the view whenever it has changed.</li>
+<li>We listen to the <code>state</code> stream and rerender the view whenever it changes.</li>
 </ul>
 <p>You can think of this process as an endless cycle of <code>Render -&gt; User Action -&gt; State Modification -&gt; Render</code>.</p>
 <h2 id="example-many-counters">Example: Many Counters</h2>
@@ -192,7 +193,7 @@ class State {
   State(this.nextId, this.counters);
 }
 </code></pre>
-<p>Since we want the ability to add, remove and update a counter, the module will include three actions for each of the behaviors.</p>
+<p>Since we want the ability to add, remove and update a counter, the module will include actions for each behavior.</p>
 <pre><code class="lang-dart">// lib/views/counter_list/actions.dart
 part of counter_demo.views.counter_list;
 
@@ -218,7 +219,7 @@ Action&lt;State&gt; updateCounter(int id, Action&lt;counter.State&gt; action) {
   };
 }
 </code></pre>
-<p>Something to take note of is the <code>updateCounter</code> action. Here we&#39;re passing the identifier of the counter to update, and an action that returns a new counter to replace it with. This paradigm is how the state of a child module gets merged into its parent. This will become clearer once we define the view for our counter list.</p>
+<p>Something to take note of is the <code>updateCounter</code> action. Here we&#39;re passing the identifier of the counter to update, and an action that returns a new counter to replace it with. This paradigm is how the state of a child module gets merged into its parent. This will become clearer once we define the view for our <code>counter_list</code> module.</p>
 <pre><code class="lang-dart">// lib/views/counter_list/view.dart
 part of counter_demo.views.counter_list;
 
@@ -250,17 +251,17 @@ class View extends Component {
   }
 }
 </code></pre>
-<p>As previously mentioned, we need to modify the states of a counter in the counter list. To handle this, we create a new stream controller for each counter view that it can add actions onto. When an action is added, we associate that action with an ID using <code>updateCounter</code> which will apply the action to the specific counter in the counter list.</p>
+<p>As previously mentioned, we need to modify the states of a counter in the counter list. To handle this, we create a new stream controller for each counter view that it can add actions onto. When an action is added, it&#39;s associated with an ID using <code>updateCounter</code> which applies the action to the specific counter in the counter list.</p>
 <p>Another important thing to note is that a module is only responsible for its direct children. At no time is a module reaching down to a grandchild to modify state, or is it ever reaching outside itself to get its state. The actions for grandchildren will always be propagated up by the module&#39;s children, and the state of the module will always be passed by its parent.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p>To summarize, here are some take aways:</p>
 <ul>
-<li>Each module is a self-contained library that with a view, a state and a set of actions. This keeps the API for each module standardized and makes it easy to turn into a <a href="https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading">deferred library</a>.</li>
+<li>Each module is a self-contained library that has a view, a state and a set of actions. This keeps the API for each module standardized and makes it easy to turn into a <a href="https://www.dartlang.org/docs/dart-up-and-running/ch02.html#deferred-loading">deferred library</a>.</li>
 <li>Modules can be nested infinitely, and each module is only concerned about its immediate children.</li>
 <li>Your application state is centralized and serves as the source of truth when triggering side effects, eliminating bugs where the state of a component becomes out of sync with the state of the application.</li>
 <li>Testing is made easier from the use of immutable classes and declarative actions.</li>
 </ul>
-<p>If you&#39;re interested in looking further into this architecture, the <a href="https://github.com/danschultz/modular_counter_react_dart">source code</a> for this app is up on Github. I also have a <a href="https://github.com/danschultz/modular_todo_react_dart">TodoMVC</a> example that uses this pattern that&#39;s slightly more involved.</p>
+<p>If you&#39;re interested in looking further into this architecture, the <a href="https://github.com/danschultz/modular_counter_react_dart">source code</a> for this app is up on Github. There&#39;s also a <a href="https://github.com/danschultz/modular_todo_react_dart">TodoMVC</a> example that&#39;s a bit more involved.</p>
 <p>I hope you give this a try in one of your apps, and if you do, let me know how it went in the comments below.</p>
 
         </section>
